@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xtramilemobiletest/screens/main_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:xtramilemobiletest/utils/color.dart';
 import 'package:xtramilemobiletest/widgets/bottom_menu_widget.dart';
 
 class MainAppPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MainAppPageState extends State<MainAppPage> {
     controller = Provider.of<MainController>(context);
     return Scaffold(
       bottomNavigationBar: BottomMenuWidget(),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: controller.screen,
       ),

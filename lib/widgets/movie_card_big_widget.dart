@@ -4,26 +4,31 @@ import 'package:xtramilemobiletest/models/movie_model.dart';
 
 class MovieCardBig extends StatelessWidget {
   final MovieModel model;
+  final VoidCallback? onClick;
 
-  const MovieCardBig({required this.model, Key? key}) : super(key: key);
+  const MovieCardBig({required this.model, this.onClick, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 300,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/${model.posterPath}"),
-              fit: BoxFit.fill),
-          borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          MovieCardDetail(
-              title: model.title ?? "", rate: model.voteAverage ?? 0),
-        ],
+    return InkWell(
+      onTap: onClick ?? (){},
+      child: Container(
+        width: 200,
+        height: 300,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/${model.posterPath}"),
+                fit: BoxFit.fill),
+            borderRadius: BorderRadius.circular(12)),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MovieCardDetail(
+                title: model.title ?? "", rate: model.voteAverage ?? 0),
+          ],
+        ),
       ),
     );
   }
