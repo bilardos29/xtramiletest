@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:xtramilemobiletest/models/bottom_menu_model.dart';
 
+import '../utils/color.dart';
+
 class BottomMenuWidget extends StatelessWidget {
   const BottomMenuWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: AppColor.skate.shade300,
       padding: const EdgeInsets.all(12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           BotttomMenuIcon(
               model: BottomMenuModel(
-                  title: "Home", image: Icons.home, onClick: () {})),
+                  title: "Home",
+                  image: Icons.home,
+                  isSelected: true,
+                  onClick: () {})),
           BotttomMenuIcon(
               model: BottomMenuModel(
-                  title: "Discover", image: Icons.emoji_objects_outlined, onClick: () {})),
+                  title: "Discover",
+                  image: Icons.emoji_objects_outlined,
+                  onClick: () {})),
           BotttomMenuIcon(
               model: BottomMenuModel(
                   title: "Favorite", image: Icons.favorite, onClick: () {})),
           BotttomMenuIcon(
               model: BottomMenuModel(
-                  title: "Account", image: Icons.account_circle, onClick: () {})),
+                  title: "Account",
+                  image: Icons.account_circle,
+                  onClick: () {})),
         ],
       ),
     );
@@ -38,6 +48,11 @@ class BotttomMenuIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(8), child: Icon(model.image, size: 24));
+        padding: const EdgeInsets.all(8),
+        child: Icon(
+          model.image,
+          size: 28,
+          color: model.isSelected ? Colors.black : Colors.white70,
+        ));
   }
 }
