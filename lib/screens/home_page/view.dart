@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xtramilemobiletest/models/movie_model.dart';
+import 'package:xtramilemobiletest/screens/detail_movie/controller.dart';
 import 'package:xtramilemobiletest/screens/detail_movie/view.dart';
 import 'package:xtramilemobiletest/widgets/movie_card_big_widget.dart';
 import '../../widgets/header_widget.dart';
@@ -17,10 +18,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomeController controller;
+  late DetailMovieController detailMovieController;
 
   @override
   Widget build(BuildContext context) {
     controller = Provider.of<HomeController>(context);
+    detailMovieController = Provider.of<DetailMovieController>(context);
     controller.getListMovieUpcoming();
     controller.getListMovieNowPlaying();
     return Stack(children: [
@@ -46,11 +49,21 @@ class _HomePageState extends State<HomePage> {
                                 posterPath: model.posterPath,
                                 voteAverage: model.voteAverage),
                             onClick: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DetailMoviePage()));
+                              detailMovieController.getListReview(
+                                  movieId: model.id ?? 0,
+                                  onSuccess: () {
+                                    detailMovieController.getDetailMovie(
+                                        movieId: model.id ?? 0,
+                                        onSuccess: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailMoviePage(
+                                                          movieId:
+                                                              model.id ?? 0)));
+                                        });
+                                  });
                             });
                       })
                   : SizedBox()),

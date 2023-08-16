@@ -16,24 +16,26 @@ class MovieModel {
 
   MovieModel(
       {this.adult,
-        this.backdropPath,
-        this.genreIds,
-        this.id,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.releaseDate,
-        this.title,
-        this.video,
-        this.voteAverage,
-        this.voteCount});
+      this.backdropPath,
+      this.genreIds,
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.voteCount});
 
   MovieModel.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = 'https://image.tmdb.org/t/p/w500${json['backdrop_path']}';
-    genreIds = json['genre_ids'].cast<int>();
+    if (json['genre_ids'] != null) {
+      genreIds = json['genre_ids'].cast<int>();
+    }
     id = json['id'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
@@ -47,24 +49,4 @@ class MovieModel {
     voteAverage = voteAverage != 0 ? (voteAverage! / 2) : voteAverage;
     voteCount = json['vote_count'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['adult'] = adult;
-    data['backdrop_path'] = backdropPath;
-    data['genre_ids'] = genreIds;
-    data['id'] = id;
-    data['original_language'] = originalLanguage;
-    data['original_title'] = originalTitle;
-    data['overview'] = overview;
-    data['popularity'] = popularity;
-    data['poster_path'] = posterPath;
-    data['release_date'] = releaseDate;
-    data['title'] = title;
-    data['video'] = video;
-    data['vote_average'] = voteAverage;
-    data['vote_count'] = voteCount;
-    return data;
-  }
-
 }

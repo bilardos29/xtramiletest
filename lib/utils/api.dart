@@ -38,7 +38,7 @@ class Api {
       required ValueChanged<dynamic> onSuccess}) async {
     try {
       var url = "https://api.themoviedb.org/3/movie/" + path;
-      print('url dio $url header $finalHeader, $apiMethod');
+      //print('url dio $url header $finalHeader, $apiMethod');
       var options = Options(
           responseType: ResponseType.json,
           headers: finalHeader,
@@ -47,7 +47,6 @@ class Api {
           .request(url,
               options: options, data: data, queryParameters: queryString)
           .timeout(Duration(seconds: 20));
-      print("response data : ${response.data}");
       onSuccess(response.data);
     } on DioError catch (error) {
       if (error.response == null) {

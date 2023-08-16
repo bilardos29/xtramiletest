@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:xtramilemobiletest/screens/youtube/view.dart';
 import 'package:xtramilemobiletest/widgets/headline_widget.dart';
 import 'package:xtramilemobiletest/widgets/user_review_widget.dart';
 
+import '../../models/review_model.dart';
+import '../../utils/date_converter.dart';
+import 'controller.dart';
+
 class DetailMoviePage extends StatefulWidget {
-  const DetailMoviePage({Key? key}) : super(key: key);
+  final int movieId;
+
+  const DetailMoviePage({required this.movieId, Key? key}) : super(key: key);
 
   @override
   State<DetailMoviePage> createState() => _DetailMoviePageState();
 }
 
 class _DetailMoviePageState extends State<DetailMoviePage> {
+  late DetailMovieController controller;
+
   @override
   Widget build(BuildContext context) {
+    controller = Provider.of<DetailMovieController>(context);
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -21,10 +31,10 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
               opacity: 0.8,
               child: Container(
                   height: 200,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(
-                            "images/imgmovie1.png",
+                          image: NetworkImage(
+                            controller.model.backdropPath ?? "",
                           ),
                           fit: BoxFit.cover))),
             ),
@@ -59,62 +69,54 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                             Container(
                               width: 150,
                               height: 200,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: AssetImage(
-                                        "images/imgmovie1.png",
+                                      image: NetworkImage(
+                                        controller.model.posterPath ?? "",
                                       ),
                                       fit: BoxFit.cover),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12))),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const YoutubePage()),
-                                );
-                              },
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(60),
-                                    color: Colors.white),
-                                child: const Icon(Icons.play_circle,
-                                    size: 60, color: Colors.red),
-                              ),
-                            ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const YoutubePage()));
+                                },
+                                child: Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(60),
+                                        color: Colors.white),
+                                    child: const Icon(Icons.play_circle,
+                                        size: 60, color: Colors.red))),
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: Text("Title",
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Text('${controller.model.title}',
                             style: const TextStyle(
                                 fontSize: 22,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                       ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: Text(
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                            " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-                            "when an unknown printer took a galley of type and scrambled it to make a type specimen"
-                            " book. It has survived not only five centuries, but also the leap into electronic typesetting,"
-                            " remaining essentially unchanged.",
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Text('${controller.model.overview}',
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontSize: 18, color: Colors.black)),
                       ),
                       const SizedBox(height: 12),
-                      Divider(height: 1),
+                      const Divider(height: 1),
                       const SizedBox(height: 4),
                       const HeadlineWidget(
                           headline: "User Reviews", isSingleLine: true),
@@ -122,19 +124,18 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                       ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 10,
-                          itemBuilder: (index, context) {
-                            return const UserReviewWidget(
-                                imgProfile: "",
-                                name: "Bung Haji",
-                                dateReview: "12 Agustus 2023",
-                                rate: 4.5,
-                                comment:
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                                    " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-                                    "when an unknown printer took a galley of type and scrambled it to make a type specimen"
-                                    " book. It has survived not only five centuries, but also the leap into electronic typesetting,"
-                                    " remaining essentially unchanged.");
+                          itemCount: controller.listReview.length,
+                          itemBuilder: (ctx, idx) {
+                            ReviewModel model = ReviewModel.fromJson(
+                                controller.listReview[idx]);
+                            return UserReviewWidget(
+                                imgProfile:
+                                    model.authorDetails!.avatarPath ?? "",
+                                name: model.authorDetails!.name ?? "",
+                                dateReview:
+                                    DateConverter.convertDate(model.createdAt!),
+                                rate: model.authorDetails!.rating ?? 0,
+                                comment: model.content ?? "");
                           })
                     ]),
               ),

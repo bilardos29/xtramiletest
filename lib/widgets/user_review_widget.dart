@@ -30,15 +30,16 @@ class UserReviewWidget extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        image: AssetImage(
-                          "images/imgProfile1.jpeg",
-                        ),
-                        fit: BoxFit.cover),
+                    image: imgProfile.isEmpty
+                        ? const DecorationImage(
+                            image: AssetImage("images/imgProfile.png"),
+                            fit: BoxFit.cover)
+                        : DecorationImage(
+                            image: NetworkImage(imgProfile), fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(32)),
               ),
               const SizedBox(width: 8),
-              Text(name,
+              Text(name.isEmpty ? "User Name" : name,
                   style: const TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -48,7 +49,7 @@ class UserReviewWidget extends StatelessWidget {
             Row(
               children: [
                 RatingBarIndicator(
-                  rating: rate,
+                  rating: rate / 2,
                   itemBuilder: (context, index) =>
                       const Icon(Icons.star, color: Colors.deepOrange),
                   itemCount: 5,

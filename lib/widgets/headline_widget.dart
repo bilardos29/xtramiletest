@@ -22,7 +22,7 @@ class HeadlineWidget extends StatelessWidget {
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
           ),
           !isSingleLine
-              ? const Text("See all>",
+              ? const Text("See all >",
                   style: TextStyle(
                       fontSize: 12,
                       color: Colors.black,
