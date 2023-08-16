@@ -12,7 +12,7 @@ class MovieCardBig extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick ?? (){},
+      onTap: onClick ?? () {},
       child: Container(
         width: 200,
         height: 300,
@@ -56,7 +56,10 @@ class MovieCardDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: const TextStyle(color: Colors.white70, fontSize: 20)),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           RatingBarIndicator(
             rating: rate,

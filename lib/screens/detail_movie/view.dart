@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xtramilemobiletest/screens/youtube/view.dart';
 import 'package:xtramilemobiletest/widgets/headline_widget.dart';
 import 'package:xtramilemobiletest/widgets/user_review_widget.dart';
 
@@ -68,7 +69,14 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                                       BorderRadius.all(Radius.circular(12))),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const YoutubePage()),
+                                );
+                              },
                               child: Container(
                                 width: 60,
                                 height: 60,
@@ -105,6 +113,8 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
                             style: const TextStyle(
                                 fontSize: 18, color: Colors.black)),
                       ),
+                      const SizedBox(height: 12),
+                      Divider(height: 1),
                       const SizedBox(height: 4),
                       const HeadlineWidget(
                           headline: "User Reviews", isSingleLine: true),
