@@ -37,7 +37,9 @@ class Api {
       required ValueChanged<String> onError,
       required ValueChanged<dynamic> onSuccess}) async {
     try {
-      var url = "https://api.themoviedb.org/3/movie/" + path;
+      var url = !path.toString().contains("discover")
+          ? "https://api.themoviedb.org/3/movie/$path"
+          : 'https://api.themoviedb.org/3/$path';
       //print('url dio $url header $finalHeader, $apiMethod');
       var options = Options(
           responseType: ResponseType.json,

@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                                   });
                             });
                       })
-                  : SizedBox()),
+                  : const SizedBox()),
           const SizedBox(height: 8),
           const HeadlineWidget(headline: "Now Playing", isSingleLine: true),
           controller.listMovieNowPlaying.isNotEmpty
@@ -84,6 +84,13 @@ class _HomePageState extends State<HomePage> {
                             title: model.title,
                             posterPath: model.posterPath,
                             voteAverage: model.voteAverage),
+                        onClick: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailMoviePage(movieId: model.id ?? 0)));
+                        },
                       ),
                     );
                   })
