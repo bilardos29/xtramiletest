@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:xtramilemobiletest/screens/detail_movie/controller.dart';
+import 'package:xtramilemobiletest/screens/home_page/controller.dart';
 import 'package:xtramilemobiletest/screens/main_app_page.dart';
 import 'package:xtramilemobiletest/screens/main_controller.dart';
+
+import 'screens/list_discover_movies/controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +21,15 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => MainController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => HomeController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => DiscoverController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => DetailMovieController(),
           ),
         ],
         child: MaterialApp(

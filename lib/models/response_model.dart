@@ -1,13 +1,15 @@
 class ResponseListModel {
   int? page;
-  String? result;
+  dynamic result;
   int? totalPages;
   int? totalResults;
 
-  ResponseListModel({this.page,
+  ResponseListModel({
+    this.page,
     this.result,
     this.totalPages,
-    this.totalResults});
+    this.totalResults,
+  });
 
   ResponseListModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
@@ -24,5 +26,4 @@ class ResponseListModel {
     data['total_results'] = totalResults;
     return data;
   }
-
 }

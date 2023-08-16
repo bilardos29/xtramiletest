@@ -18,7 +18,7 @@ class MovieCardListWidget extends StatelessWidget {
         height: 300,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("images/${model.posterPath}"),
+                image: NetworkImage('${model.posterPath}'),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.symmetric(horizontal: 8),

@@ -6,7 +6,8 @@ class MovieCardBig extends StatelessWidget {
   final MovieModel model;
   final VoidCallback? onClick;
 
-  const MovieCardBig({required this.model, this.onClick, Key? key})
+  const MovieCardBig(
+      {required this.model, this.onClick, Key? key})
       : super(key: key);
 
   @override
@@ -17,9 +18,10 @@ class MovieCardBig extends StatelessWidget {
         width: 200,
         height: 300,
         decoration: BoxDecoration(
+          color: Colors.black12,
             image: DecorationImage(
-                image: AssetImage("images/${model.posterPath}"),
-                fit: BoxFit.fill),
+                    image: NetworkImage('${model.posterPath}'),
+                    fit: BoxFit.fill),
             borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
