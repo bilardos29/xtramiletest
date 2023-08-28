@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xtramilemobiletest/screens/webview/view.dart';
 import 'package:xtramilemobiletest/utils/color.dart';
 
 class AccountPage extends StatefulWidget {
@@ -48,7 +49,12 @@ class _AccountPageState extends State<AccountPage> {
         const SizedBox(height: 20),
         Column(
           children: [
-            AccountWidget(labelText: "Change Username", onClick: () {}),
+            AccountWidget(
+                labelText: "Change Username",
+                onClick: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const WebviewPage()));
+                }),
             AccountWidget(labelText: "Change Password", onClick: () {}),
             AccountWidget(labelText: "About Us", onClick: () {}),
             AccountWidget(labelText: "Rate Us", onClick: () {}),
